@@ -51,7 +51,9 @@ class Apitome::DocsController < ActionController::Base
   end
 
   def resources
-    @resources ||= JSON.parse(file_for("index.json"))["resources"]
+    index_path = "index.json"
+    index_path = [params[:group], index_path].join('/') if params[:group]
+    @resources ||= JSON.parse(file_for(index_path))["resources"]
   end
 
   def example
